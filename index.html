@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlucoTrack 🌞</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+:root{
+  --cream:#fffaf0;
+  --yellow:#ffe59a;
+  --peach:#ffd0c2;
+  --pink:#f8c9dc;
+  --lavender:#ddd2ff;
+  --mint:#cceedd;
+  --blue:#cce7f7;
+  --green:#a9d9b8;
+  --brown:#51483f;
+  --white:#ffffff;
+  --shadow:0 12px 30px rgba(90,70,50,.10);
+  --radius:25px;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  overflow-x:hidden;
+}
+
+h1,h2,h3{
+  font-family:'Playfair Display',serif;
+}
+
+button,input,select{
+  font-family:inherit;
+}
+
+/* NAVBAR */
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(255,250,240,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid rgba(80,70,60,.08);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 5%;
+}
+
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:27px;
+  font-weight:700;
+  color:#55483d;
+}
+
+.logo span{
+  color:#d89b5b;
+}
+
+.navlinks{
+  display:flex;
+  gap:18px;
+  list-style:none;
+  flex-wrap:wrap;
+}
+
+.navlinks a{
+  text-decoration:none;
+  color:#655b52;
+  font-size:14px;
+  font-weight:600;
+}
+
+.navlinks a:hover{
+  color:#d28e55;
+}
+
+/* HERO */
+
+.hero{
+  min-height:650px;
+  padding:70px 6%;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  align-items:center;
+  gap:30px;
+  background:
+    radial-gradient(circle at 10% 20%,#ffe9a8 0 8%,transparent 9%),
+    radial-gradient(circle at 90% 15%,#f6d2df 0 8%,transparent 9%),
+    radial-gradient(circle at 80% 90%,#d9d0ff 0 10%,transparent 11%),
+    linear-gradient(135deg,#fff9e9,#fff3ec);
+}
+
+.hero small{
+  background:#fff;
+  padding:9px 15px;
+  border-radius:30px;
+  display:inline-block;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.hero h1{
+  font-size:clamp(50px,7vw,90px);
+  line-height:.95;
+  margin-bottom:22px;
+}
+
+.hero h1 span{
+  color:#df9a5e;
+}
+
+.hero p{
+  max-width:580px;
+  line-height:1.8;
+  font-size:17px;
+  margin-bottom:30px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:none;
+  padding:14px 22px;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+.btn-primary{
+  background:#f5bd79;
+  color:#493b30;
+}
+
+.btn-secondary{
+  background:#fff;
+  color:#5d5147;
+  box-shadow:var(--shadow);
+}
+
+.hero-art{
+  min-height:450px;
+  position:relative;
+}
+
+.blob{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(.2px);
+}
+
+.blob.one{
+  width:280px;
+  height:280px;
+  background:#ffe09a;
+  top:30px;
+  left:30px;
+}
+
+.blob.two{
+  width:210px;
+  height:210px;
+  background:#e4d7ff;
+  bottom:30px;
+  right:20px;
+}
+
+.hero-card{
+  position:absolute;
+  background:#fff;
+  border-radius:35px;
+  box-shadow:var(--shadow);
+  padding:28px;
+  width:280px;
+  top:80px;
+  left:100px;
+  transform:rotate(-5deg);
+}
+
+.hero-card .foodemoji{
+  font-size:80px;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.hero-card h3{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.hero-card p{
+  font-size:13px;
+  line-height:1.6;
+  margin:0;
+}
+
+/* GENERAL */
+
+.section{
+  padding:80px 6%;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  margin-bottom:35px;
+}
+
+.section-head h2{
+  font-size:42px;
+}
+
+.section-head p{
+  max-width:550px;
+  line-height:1.7;
+}
+
+/* FEATURE GRID */
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.feature-card{
+  min-height:190px;
+  padding:25px;
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  transition:.3s;
+  cursor:pointer;
+}
+
+.feature-card:hover{
+  transform:translateY(-7px) rotate(-1deg);
+}
+
+.feature-card:nth-child(1){background:var(--peach)}
+.feature-card:nth-child(2){background:var(--mint)}
+.feature-card:nth-child(3){background:var(--lavender)}
+.feature-card:nth-child(4){background:var(--yellow)}
+.feature-card:nth-child(5){background:var(--blue)}
+.feature-card:nth-child(6){background:var(--pink)}
+.feature-card:nth-child(7){background:#e5f0d4}
+.feature-card:nth-child(8){background:#ffe4c9}
+
+.feature-card .emoji{
+  font-size:42px;
+  margin-bottom:20px;
+}
+
+.feature-card h3{
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+/* FOOD SECTION */
+
+.food-tools{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:30px;
+}
+
+.search{
+  flex:1;
+  min-width:220px;
+  border:2px solid #eee1d4;
+  background:#fff;
+  padding:14px 18px;
+  border-radius:30px;
+  outline:none;
+}
+
+.filter{
+  border:none;
+  background:#fff;
+  padding:13px 18px;
+  border-radius:30px;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+}
+
+.filter.active{
+  background:#f4bd78;
+}
+
+.food-grid{
+  columns:4 220px;
+  column-gap:18px;
+}
+
+.food-card{
+  display:inline-block;
+  width:100%;
+  margin:0 0 18px;
+  padding:20px;
+  border-radius:25px;
+  box-shadow:var(--shadow);
+  background:#fff;
+  cursor:pointer;
+  transition:.3s;
+  break-inside:avoid;
+}
+
+.food-card:hover{
+  transform:translateY(-5px);
+}
+
+.food-card .bigemoji{
+  font-size:65px;
+  text-align:center;
+  margin:5px 0 15px;
+}
+
+.food-card h3{
+  font-size:21px;
+  margin-bottom:7px;
+}
+
+.food-card p{
+  font-size:12px;
+  opacity:.75;
+}
+
+.tag{
+  display:inline-block;
+  margin-top:10px;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#fff1c9;
+  font-size:11px;
+  font-weight:700;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(55,45,38,.45);
+  backdrop-filter:blur(7px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:#fffaf3;
+  width:min(700px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border-radius:35px;
+  padding:35px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:20px;
+  top:18px;
+  border:none;
+  background:#f7d7d2;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.modal-emoji{
+  font-size:80px;
+}
+
+.ingredients{
+  margin:20px 0;
+}
+
+.ingredient-row{
+  display:flex;
+  justify-content:space-between;
+  padding:11px 0;
+  border-bottom:1px dashed #ddd;
+}
+
+.serving-box{
+  background:#fff;
+  padding:20px;
+  border-radius:20px;
+  margin:20px 0;
+}
+
+.serving-box input{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:15px;
+}
+
+/* PLATE BUILDER */
+
+.plate-wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+}
+
+.plate-controls{
+  background:#fff;
+  border-radius:30px;
+  padding:25px;
+  box-shadow:var(--shadow);
+}
+
+.category-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:18px 0;
+}
+
+.category-buttons button{
+  border:none;
+  padding:10px 13px;
+  border-radius:20px;
+  background:#f4eadf;
+  cursor:pointer;
+}
+
+.category-buttons button.selected{
+  background:#f4bd78;
+}
+
+.plate-options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+  margin-top:15px;
+}
+
+.plate-options button{
+  border:1px solid #eee;
+  background:#fff;
+  border-radius:16px;
+  padding:11px;
+  cursor:pointer;
+  text-align:left;
+}
+
+.plate{
+  min-height:500px;
+  background:#fff;
+  border-radius:40px;
+  box-shadow:var(--shadow);
+  padding:25px;
+  text-align:center;
+}
+
+.plate-circle{
+  width:350px;
+  max-width:90%;
+  aspect-ratio:1;
+  border-radius:50%;
+  margin:20px auto;
+  background:#fffaf2;
+  border:13px solid #eee0cf;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-content:center;
+  gap:8px;
+  padding:30px;
+}
+
+.plate-item{
+  background:#fff;
+  padding:10px 13px;
+  border-radius:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  font-size:13px;
+}
+
+.plate-summary{
+  background:#edf8ee;
+  border-radius:20px;
+  padding:15px;
+  text-align:left;
+}
+
+/* QUIZ */
+
+.quiz-box{
+  background:#fff;
+  border-radius:35px;
+  box-shadow:var(--shadow);
+  padding:35px;
+  max-width:850px;
+  margin:auto;
+}
+
+.quiz-progress{
+  height:9px;
+  background:#eee;
+  border-radius:10px;
+  overflow:hidden;
+  margin:15px 0 25px;
+}
+
+.quiz-progress div{
+  height:100%;
+  background:#e7b56f;
+  width:0%;
+}
+
+.question{
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.answers{
+  display:grid;
+  gap:12px;
+}
+
+.answers button{
+  border:2px solid #eee;
+  background:#fffaf5;
+  padding:15px;
+  border-radius:17px;
+  text-align:left;
+  cursor:pointer;
+}
+
+.answers button:hover{
+  background:#fff0d2;
+}
+
+.quiz-result{
+  text-align:center;
+  padding:30px;
+  display:none;
+}
+
+/* WELLNESS */
+
+.wellness-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.wellness-card{
+  padding:28px;
+  border-radius:30px;
+  box-shadow:var(--shadow);
+  background:#fff;
+}
+
+.wellness-card:nth-child(1){background:#dff2e7}
+.wellness-card:nth-child(2){background:#fff0c8}
+.wellness-card:nth-child(3){background:#e6dcff}
+
+.wellness-card input,
+.wellness-card select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:14px;
+  margin:8px 0 12px;
+}
+
+.result{
+  margin-top:15px;
+  background:#fff;
+  padding:13px;
+  border-radius:15px;
+}
+
+/* WATER */
+
+.water-display{
+  text-align:center;
+  margin:20px 0;
+}
+
+.water-number{
+  font-size:60px;
+  font-family:'Playfair Display';
+}
+
+.water-glasses{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:20px 0;
+}
+
+.glass{
+  font-size:30px;
+  opacity:.25;
+  cursor:pointer;
+}
+
+.glass.full{
+  opacity:1;
+}
+
+/* EDUCATION */
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.info-card{
+  background:#fff;
+  padding:28px;
+  border-radius:28px;
+  box-shadow:var(--shadow);
+}
+
+.info-card ul{
+  padding-left:20px;
+  line-height:1.9;
+}
+
+/* FOOTER */
+
+footer{
+  padding:45px 6%;
+  background:#55483e;
+  color:#fff8ee;
+  text-align:center;
+  line-height:1.7;
+}
+
+.disclaimer{
+  max-width:900px;
+  margin:15px auto;
+  font-size:12px;
+  opacity:.8;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .hero-art{
+    min-height:350px;
+  }
+
+  .feature-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .plate-wrap{
+    grid-template-columns:1fr;
+  }
+
+  .wellness-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+  nav{
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .navlinks{
+    display:none;
+  }
+
+  .hero{
+    padding-top:50px;
+  }
+
+  .hero h1{
+    font-size:55px;
+  }
+
+  .hero-card{
+    left:50%;
+    transform:translateX(-50%) rotate(-4deg);
+  }
+
+  .section{
+    padding:55px 5%;
+  }
+
+  .section-head{
+    display:block;
+  }
+
+  .section-head h2{
+    font-size:34px;
+    margin-bottom:10px;
+  }
+
+  .feature-grid{
+    grid-template-columns:1fr;
+  }
+
+  .plate-circle{
+    padding:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">Gluco<span>Track</span> 🌞</div>
+  <ul class="navlinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#foods">Foods</a></li>
+    <li><a href="#plate">Make Your Plate</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#wellness">Wellness</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+  <div>
+    <small>🌤️ A playful nutrition learning space</small>
+
+    <h1>
+      Understand<br>
+      Your <span>Food.</span>
+    </h1>
+
+    <p>
+      Explore food, digestion, carbohydrates, glucose response,
+      balanced meals and everyday wellness through an interactive
+      educational experience.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#foods">
+        <button class="btn btn-primary">Explore Foods 🍓</button>
+      </a>
+
+      <a href="#plate">
+        <button class="btn btn-secondary">Make Your Plate 🍽️</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-art">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+
+    <div class="hero-card">
+      <div class="foodemoji">🥣</div>
+      <h3>Food → Digestion → Glucose</h3>
+      <p>
+        Learn how carbohydrates are digested and how glucose
+        response can vary between foods.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- FEATURE CARDS -->
+<section class="section">
+
+  <div class="section-head">
+    <div>
+      <h2>Explore GlucoTrack</h2>
+      <p>
+        Learn nutrition through colourful cards, mini tools and
+        interactive activities.
+      </p>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+
+    <div class="feature-card" onclick="location.href='#foods'">
+      <div class="emoji">🥗</div>
+      <h3>Healthy Meals</h3>
+      <p>Explore Indian dishes and their ingredients.</p>
+    </div>
+
+    <div class="feature-card" onclick="showFoodCategory('dairy')">
+      <div class="emoji">🥛</div>
+      <h3>Dairy</h3>
+      <p>Milk, paneer, cheese, curd, yogurt and more.</p>
+    </div>
+
+    <div class="feature-card" onclick="showFoodCategory('beverage')">
+      <div class="emoji">🧋</div>
+      <h3>Beverages</h3>
+      <p>Tea, coffee, juices, smoothies and drinks.</p>
+    </div>
+
+    <div class="feature-card" onclick="showFoodCategory('snack')">
+      <div class="emoji">🍿</div>
+      <h3>Snacks</h3>
+      <p>Explore everyday snack choices.</p>
+    </div>
+
+    <div class="feature-card" onclick="location.href='#plate'">
+      <div class="emoji">🍽️</div>
+      <h3>Make Your Plate</h3>
+      <p>Create your own colourful plate.</p>
+    </div>
+
+    <div class="feature-card" onclick="location.href='#quiz'">
+      <div class="emoji">🧠</div>
+      <h3>Nutrition Quiz</h3>
+      <p>Test your food and biochemistry knowledge.</p>
+    </div>
+
+    <div class="feature-card" onclick="location.href='#wellness'">
+      <div class="emoji">💧</div>
+      <h3>Water Reminder</h3>
+      <p>Track your glasses throughout the day.</p>
+    </div>
+
+    <div class="feature-card" onclick="location.href='#education'">
+      <div class="emoji">📚</div>
+      <h3>Learn</h3>
+      <p>Understand dietary carbohydrates and glucose.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOD EXPLORER -->
+<section class="section" id="foods">
+
+  <div class="section-head">
+    <div>
+      <h2>Food Flashcards 🍓</h2>
+      <p>
+        Tap any card to explore ingredients, serving adjustment
+        and cooking information.
+      </p>
+    </div>
+  </div>
+
+  <div class="food-tools">
+
+    <input
+      class="search"
+      id="foodSearch"
+      placeholder="🔎 Search food..."
+      oninput="displayFoods()"
+    >
+
+    <button class="filter active" onclick="setFilter('all',this)">All</button>
+    <button class="filter" onclick="setFilter('south',this)">South Indian</button>
+    <button class="filter" onclick="setFilter('north',this)">North Indian</button>
+    <button class="filter" onclick="setFilter('nonveg',this)">Non-Veg</button>
+    <button class="filter" onclick="setFilter('dairy',this)">Dairy</button>
+    <button class="filter" onclick="setFilter('beverage',this)">Beverages</button>
+    <button class="filter" onclick="setFilter('snack',this)">Snacks</button>
+
+  </div>
+
+  <div class="food-grid" id="foodGrid"></div>
+
+</section>
+
+<!-- MAKE YOUR PLATE -->
+<section class="section" id="plate">
+
+  <div class="section-head">
+    <div>
+      <h2>Make Your Plate 🍽️</h2>
+      <p>
+        Pick foods from different groups and build your own
+        colourful educational plate.
+      </p>
+    </div>
+  </div>
+
+  <div class="plate-wrap">
+
+    <div class="plate-controls">
+
+      <h3>Choose a category</h3>
+
+      <div class="category-buttons">
+
+        <button onclick="plateCategory('dish',this)">🍛 Dishes</button>
+        <button onclick="plateCategory('vegetable',this)">🥦 Vegetables</button>
+        <button onclick="plateCategory('fruit',this)">🍎 Fruits</button>
+        <button onclick="plateCategory('protein',this)">🥚 Protein</button>
+        <button onclick="plateCategory('dairy',this)">🥛 Dairy</button>
+        <button onclick="plateCategory('beverage',this)">🧋 Beverage</button>
+        <button onclick="plateCategory('snack',this)">🍿 Snacks</button>
+
+      </div>
+
+      <div class="plate-options" id="plateOptions">
+        <p>Select a category above.</p>
+      </div>
+
+      <br>
+
+      <button class="btn btn-secondary" onclick="clearPlate()">
+        Clear Plate
+      </button>
+
+    </div>
+
+    <div class="plate">
+
+      <h3>Your Plate 🌸</h3>
+
+      <div class="plate-circle" id="plateCircle">
+        <span style="opacity:.5">Add foods ✨</span>
+      </div>
+
+      <div class="plate-summary" id="plateSummary">
+        Your plate is ready to be created.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- QUIZ -->
+<section class="section" id="quiz">
+
+  <div class="section-head">
+    <div>
+      <h2>GlucoTrack Quiz 🧠</h2>
+      <p>
+        25 questions covering dairy foods, beverages, snacks,
+        carbohydrates, digestion and nutrition.
+      </p>
+    </div>
+  </div>
+
+  <div class="quiz-box">
+
+    <div id="quizArea">
+
+      <div>
+        Question <span id="questionNumber">1</span> / 25
+      </div>
+
+      <div class="quiz-progress">
+        <div id="quizProgress"></div>
+      </div>
+
+      <div class="question" id="question"></div>
+
+      <div class="answers" id="answers"></div>
+
+    </div>
+
+    <div class="quiz-result" id="quizResult"></div>
+
+  </div>
+
+</section>
+
+<!-- WELLNESS -->
+<section class="section" id="wellness">
+
+  <div class="section-head">
+    <div>
+      <h2>Everyday Wellness 🌿</h2>
+      <p>
+        Simple educational tools for hydration, steps, sleep and
+        body-mass calculation.
+      </p>
+    </div>
+  </div>
+
+  <div class="wellness-grid">
+
+    <!-- WATER -->
+    <div class="wellness-card">
+
+      <h3>💧 Water Tracker</h3>
+
+      <div class="water-display">
+        <div class="water-number" id="waterCount">0</div>
+        <p>glasses logged</p>
+      </div>
+
+      <div class="water-glasses" id="waterGlasses"></div>
+
+      <button class="btn btn-primary" onclick="addWater()">
+        + Add Glass
+      </button>
+
+      <button class="btn btn-secondary" onclick="resetWater()">
+        Reset
+      </button>
+
+      <p style="font-size:12px;margin-top:15px">
+        💡 Hydration needs vary. Use this as a simple reminder,
+        not a medical target.
+      </p>
+
+    </div>
+
+    <!-- STEP TOOL -->
+    <div class="wellness-card">
+
+      <h3>👟 Step Calculator</h3>
+
+      <label>Steps</label>
+
+      <input type="number" id="steps" placeholder="Example: 5000">
+
+      <button class="btn btn-primary" onclick="calculateSteps()">
+        Calculate
+      </button>
+
+      <div class="result" id="stepResult">
+        Enter your steps to get an approximate distance.
+      </div>
+
+    </div>
+
+    <!-- BMI -->
+    <div class="wellness-card">
+
+      <h3>📏 BMI Educational Tool</h3>
+
+      <label>Height (cm)</label>
+      <input type="number" id="height" placeholder="Height">
+
+      <label>Weight (kg)</label>
+      <input type="number" id="weight" placeholder="Weight">
+
+      <button class="btn btn-primary" onclick="calculateBMI()">
+        Calculate BMI
+      </button>
+
+      <div class="result" id="bmiResult">
+        Enter height and weight.
+      </div>
+
+      <p style="font-size:12px;margin-top:12px">
+        BMI is only an educational number. For people under 18,
+        BMI interpretation should use age- and sex-specific
+        growth charts with a qualified health professional.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+
+  <div class="section-head">
+    <div>
+      <h2>Learn the Science 📚</h2>
+      <p>
+        A simple introduction to dietary carbohydrates and blood
+        glucose response.
+      </p>
+    </div>
+  </div>
+
+  <div class="info-grid">
+
+    <div class="info-card">
+
+      <h3>🍚 Dietary Carbohydrates</h3>
+
+      <br>
+
+      <ul>
+        <li>Carbohydrates are major energy-providing nutrients.</li>
+        <li>They include sugars, starches and dietary fibre.</li>
+        <li>Digestible carbohydrates can be broken down into smaller sugars.</li>
+        <li>Glucose can then be absorbed into the bloodstream.</li>
+        <li>Different foods can produce different glucose responses.</li>
+      </ul>
+
+    </div>
+
+    <div class="info-card">
+
+      <h3>🔬 Food → Digestion → Glucose</h3>
+
+      <br>
+
+      <ul>
+        <li>Food enters the digestive system.</li>
+        <li>Mechanical and chemical digestion break food down.</li>
+        <li>Carbohydrates are converted into simpler sugars.</li>
+        <li>Glucose is absorbed mainly in the small intestine.</li>
+        <li>The body regulates blood glucose using hormones and tissues.</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <h2>GlucoTrack 🌞</h2>
+
+  <p>
+    Eat • Understand • Balance • Learn
+  </p>
+
+  <div class="disclaimer">
+    GlucoTrack is an educational website concept. Food response
+    illustrations are simplified learning models and are not
+    clinical predictions, medical advice, diagnosis or treatment.
+  </div>
+
+  <p style="font-size:12px;margin-top:20px">
+    © 2026 GlucoTrack
+  </p>
+
+</footer>
+
+
+<!-- FOOD MODAL -->
+
+<div class="modal" id="foodModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal()">×</button>
+
+    <div class="modal-emoji" id="modalEmoji"></div>
+
+    <h2 id="modalTitle"></h2>
+
+    <p id="modalDescription"></p>
+
+    <div class="serving-box">
+
+      <b>Servings / Quantity</b>
+
+      <input
+        type="number"
+        id="servingInput"
+        value="1"
+        min="0.5"
+        step="0.5"
+        oninput="updateIngredients()"
+      >
+
+    </div>
+
+    <h3>Ingredients</h3>
+
+    <div class="ingredients" id="ingredientList"></div>
+
+    <div class="info-card">
+
+      <h3>👩‍🍳 Cooking / Serving Idea</h3>
+
+      <p id="recipeText" style="margin-top:10px;line-height:1.8"></p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* ==============================
+   FOOD DATABASE
+============================== */
+
+const foods = [
+
+/* SOUTH INDIAN */
+
+{
+id:1,name:"Idli + Sambar + Chutney",emoji:"🥣",category:"south",
+description:"A popular South Indian breakfast combination.",
+ingredients:[
+["Idli",2,"pieces"],
+["Rice",80,"g"],
+["Urad dal",25,"g"],
+["Toor dal",35,"g"],
+["Mixed vegetables",50,"g"],
+["Coconut",20,"g"]
+],
+recipe:"Steam prepared idli batter. Prepare vegetable sambar using cooked dal and vegetables. Blend coconut chutney with coconut and suitable seasonings."
+},
+
+{
+id:2,name:"Masala Dosa",emoji:"🥞",category:"south",
+description:"Crispy dosa served with potato masala.",
+ingredients:[
+["Dosa batter",150,"g"],
+["Potato",100,"g"],
+["Onion",30,"g"],
+["Oil",5,"ml"],
+["Spices",4,"g"]
+],
+recipe:"Spread dosa batter on a hot pan. Prepare potato masala with onion and spices. Place masala inside dosa and fold."
+},
+
+{
+id:3,name:"Ven Pongal",emoji:"🍚",category:"south",
+description:"Soft rice and lentil dish seasoned with spices.",
+ingredients:[
+["Rice",80,"g"],
+["Moong dal",30,"g"],
+["Ghee",8,"g"],
+["Cashews",10,"g"],
+["Pepper",3,"g"]
+],
+recipe:"Cook rice and moong dal together until soft. Temper with spices, pepper, cashews and ghee."
+},
+
+{
+id:4,name:"Vegetable Upma",emoji:"🥕",category:"south",
+description:"Semolina cooked with vegetables and seasoning.",
+ingredients:[
+["Rava",80,"g"],
+["Carrot",25,"g"],
+["Peas",20,"g"],
+["Onion",30,"g"],
+["Oil",5,"ml"]
+],
+recipe:"Roast rava lightly. Sauté vegetables and seasoning, add water and slowly mix in rava. Cook until soft."
+},
+
+{
+id:5,name:"Poori + Masala",emoji:"🫓",category:"south",
+description:"Puffed wheat bread with potato masala.",
+ingredients:[
+["Wheat flour",100,"g"],
+["Potato",100,"g"],
+["Onion",30,"g"],
+["Oil",10,"ml"]
+],
+recipe:"Prepare dough with wheat flour and water. Roll small discs and cook in hot oil. Prepare potato masala separately."
+},
+
+{
+id:6,name:"Uttapam",emoji:"🥞",category:"south",
+description:"Thick dosa topped with vegetables.",
+ingredients:[
+["Dosa batter",160,"g"],
+["Onion",30,"g"],
+["Tomato",30,"g"],
+["Carrot",20,"g"]
+],
+recipe:"Pour thick batter onto a hot pan. Add chopped vegetables and cook both sides until done."
+},
+
+{
+id:7,name:"Appam + Vegetable Stew",emoji:"🥞",category:"south",
+description:"Soft fermented rice pancake served with vegetable stew.",
+ingredients:[
+["Appam batter",160,"g"],
+["Coconut milk",100,"ml"],
+["Mixed vegetables",80,"g"],
+["Onion",30,"g"]
+],
+recipe:"Prepare fermented appam batter and cook in a curved pan. Simmer vegetables in coconut milk for the stew."
+},
+
+{
+id:8,name:"Idiyappam",emoji:"🍜",category:"south",
+description:"Steamed rice noodle preparation.",
+ingredients:[
+["Rice flour",100,"g"],
+["Water",100,"ml"],
+["Coconut",20,"g"]
+],
+recipe:"Prepare soft dough using rice flour and hot water. Press through an idiyappam mould and steam."
+},
+
+{
+id:9,name:"Kuzhi Paniyaram",emoji:"🟤",category:"south",
+description:"Small fermented batter cakes cooked in a paniyaram pan.",
+ingredients:[
+["Idli/dosa batter",150,"g"],
+["Onion",30,"g"],
+["Carrot",20,"g"],
+["Oil",5,"ml"]
+],
+recipe:"Mix chopped vegetables into batter. Pour into a greased paniyaram pan and cook until golden."
+},
+
+{
+id:10,name:"Parotta + Salna",emoji:"🥘",category:"south",
+description:"Layered flatbread served with spiced gravy.",
+ingredients:[
+["Parotta",2,"pieces"],
+["Vegetables",60,"g"],
+["Tomato",40,"g"],
+["Spices",5,"g"]
+],
+recipe:"Prepare or heat parotta. Prepare a spiced vegetable-based salna and serve together."
+},
+
+{
+id:11,name:"Curd Rice",emoji:"🍚",category:"south",
+description:"Cooked rice mixed with curd and mild seasoning.",
+ingredients:[
+["Cooked rice",180,"g"],
+["Curd",100,"g"],
+["Milk",30,"ml"],
+["Mustard",2,"g"]
+],
+recipe:"Cool cooked rice slightly and mix with curd and milk. Add a simple tempering."
+},
+
+{
+id:12,name:"Sambar Rice",emoji:"🍲",category:"south",
+description:"Rice combined with lentil and vegetable sambar.",
+ingredients:[
+["Cooked rice",150,"g"],
+["Toor dal",40,"g"],
+["Vegetables",70,"g"],
+["Tamarind",10,"g"]
+],
+recipe:"Cook dal and vegetables with sambar spices and tamarind. Mix with cooked rice."
+},
+
+{
+id:13,name:"Lemon Rice",emoji:"🍋",category:"south",
+description:"Rice flavoured with lemon and tempering.",
+ingredients:[
+["Cooked rice",180,"g"],
+["Lemon juice",20,"ml"],
+["Peanuts",15,"g"],
+["Oil",5,"ml"]
+],
+recipe:"Prepare tempering with suitable spices and peanuts. Mix with rice and fresh lemon juice."
+},
+
+{
+id:14,name:"Tomato Rice",emoji:"🍅",category:"south",
+description:"Rice cooked or mixed with spiced tomato masala.",
+ingredients:[
+["Rice",100,"g"],
+["Tomato",100,"g"],
+["Onion",30,"g"],
+["Spices",5,"g"]
+],
+recipe:"Cook tomato and onion with spices. Combine with cooked rice and mix thoroughly."
+},
+
+{
+id:15,name:"Chapati + Vegetable Kurma",emoji:"🫓",category:"south",
+description:"Wheat flatbread served with mixed vegetable gravy.",
+ingredients:[
+["Wheat flour",100,"g"],
+["Mixed vegetables",100,"g"],
+["Coconut",20,"g"],
+["Spices",5,"g"]
+],
+recipe:"Prepare chapati dough and cook on a hot pan. Cook vegetables with coconut-based gravy."
+},
+
+/* NORTH */
+
+{
+id:16,name:"Roti + Dal",emoji:"🫓",category:"north",
+description:"Whole-wheat flatbread with lentil curry.",
+ingredients:[
+["Wheat flour",100,"g"],
+["Dal",80,"g"],
+["Tomato",30,"g"],
+["Spices",5,"g"]
+],
+recipe:"Prepare roti from wheat flour. Cook dal with tomato and spices until soft."
+},
+
+{
+id:17,name:"Aloo Paratha",emoji:"🥔",category:"north",
+description:"Stuffed wheat flatbread with potato filling.",
+ingredients:[
+["Wheat flour",100,"g"],
+["Potato",100,"g"],
+["Spices",5,"g"],
+["Curd",80,"g"]
+],
+recipe:"Prepare spiced mashed potato filling. Stuff into dough, roll gently and cook on a hot pan."
+},
+
+{
+id:18,name:"Poha",emoji:"🍋",category:"north",
+description:"Flattened rice cooked with vegetables and seasoning.",
+ingredients:[
+["Poha",100,"g"],
+["Peanuts",15,"g"],
+["Onion",30,"g"],
+["Peas",25,"g"]
+],
+recipe:"Rinse poha. Sauté vegetables and peanuts, add poha and mix gently."
+},
+
+{
+id:19,name:"Rajma Chawal",emoji:"🍛",category:"north",
+description:"Kidney bean curry served with rice.",
+ingredients:[
+["Rajma",80,"g"],
+["Rice",100,"g"],
+["Tomato",80,"g"],
+["Onion",30,"g"]
+],
+recipe:"Soak and cook rajma until tender. Prepare tomato-onion gravy and simmer rajma in it. Serve with rice."
+},
+
+{
+id:20,name:"Chole Chawal",emoji:"🍛",category:"north",
+description:"Chickpea curry served with rice.",
+ingredients:[
+["Chickpeas",90,"g"],
+["Rice",100,"g"],
+["Tomato",70,"g"],
+["Onion",30,"g"]
+],
+recipe:"Cook soaked chickpeas until tender. Simmer in spiced tomato gravy and serve with cooked rice."
+},
+
+{
+id:21,name:"Paneer Butter Masala",emoji:"🧀",category:"north",
+description:"Paneer cooked in a tomato-based creamy gravy.",
+ingredients:[
+["Paneer",100,"g"],
+["Tomato",100,"g"],
+["Butter",10,"g"],
+["Cream",20,"ml"]
+],
+recipe:"Prepare tomato gravy, add paneer and simmer gently. Finish with a small amount of butter and cream."
+},
+
+{
+id:22,name:"Veg Pulao",emoji:"🍚",category:"north",
+description:"Fragrant rice cooked with mixed vegetables.",
+ingredients:[
+["Basmati rice",100,"g"],
+["Carrot",30,"g"],
+["Peas",30,"g"],
+["Beans",30,"g"]
+],
+recipe:"Sauté whole spices and vegetables, add soaked rice and water, then cook until rice is tender."
+},
+
+{
+id:23,name:"Veg Biryani",emoji:"🥘",category:"north",
+description:"Layered rice preparation with vegetables and spices.",
+ingredients:[
+["Basmati rice",100,"g"],
+["Mixed vegetables",120,"g"],
+["Curd",30,"g"],
+["Spices",8,"g"]
+],
+recipe:"Cook rice partially. Prepare vegetable masala. Layer rice and masala and cook covered until aromatic."
+},
+
+/* NON VEG */
+
+{
+id:24,name:"Chicken Chettinad",emoji:"🍗",category:"nonveg",
+description:"Tamil-style chicken preparation with aromatic spices.",
+ingredients:[
+["Chicken",150,"g"],
+["Onion",50,"g"],
+["Tomato",50,"g"],
+["Spices",10,"g"]
+],
+recipe:"Sauté onion and spices, add tomato and chicken, then cook covered until the chicken is thoroughly cooked."
+},
+
+{
+id:25,name:"Chicken 65",emoji:"🍗",category:"nonveg",
+description:"Spiced chicken snack-style preparation.",
+ingredients:[
+["Chicken",150,"g"],
+["Curd",30,"g"],
+["Corn flour",20,"g"],
+["Spices",7,"g"]
+],
+recipe:"Marinate chicken with curd and spices. Cook thoroughly until done."
+},
+
+{
+id:26,name:"Chicken Ghee Roast",emoji:"🍗",category:"nonveg",
+description:"Mangalorean-style spiced chicken preparation.",
+ingredients:[
+["Chicken",150,"g"],
+["Ghee",10,"g"],
+["Curd",30,"g"],
+["Spices",10,"g"]
+],
+recipe:"Marinate chicken. Cook with roasted spice mixture and ghee until completely cooked."
+},
+
+{
+id:27,name:"Andhra Chilli Chicken",emoji:"🌶️",category:"nonveg",
+description:"Spicy Andhra-inspired chicken dish.",
+ingredients:[
+["Chicken",150,"g"],
+["Green chilli",15,"g"],
+["Onion",40,"g"],
+["Spices",7,"g"]
+],
+recipe:"Sauté onion and green chilli. Add chicken and spices and cook until thoroughly done."
+},
+
+{
+id:28,name:"Hyderabadi Chicken Biryani",emoji:"🍗",category:"nonveg",
+description:"Aromatic layered rice and chicken dish.",
+ingredients:[
+["Chicken",150,"g"],
+["Basmati rice",100,"g"],
+["Curd",40,"g"],
+["Onion",50,"g"]
+],
+recipe:"Prepare marinated chicken masala and partially cooked rice. Layer and cook covered until rice and chicken are completely cooked."
+},
+
+{
+id:29,name:"Chicken Pepper Fry",emoji:"🌶️",category:"nonveg",
+description:"Chicken seasoned with pepper and aromatic spices.",
+ingredients:[
+["Chicken",150,"g"],
+["Black pepper",5,"g"],
+["Onion",50,"g"],
+["Spices",6,"g"]
+],
+recipe:"Sauté onion and spices, add chicken and pepper, and cook until completely done."
+},
+
+{
+id:30,name:"Chicken Sukka",emoji:"🍗",category:"nonveg",
+description:"Dry-style chicken preparation with coconut and spices.",
+ingredients:[
+["Chicken",150,"g"],
+["Coconut",25,"g"],
+["Onion",40,"g"],
+["Spices",8,"g"]
+],
+recipe:"Cook chicken with spices. Add coconut and continue cooking until the mixture becomes dry."
+},
+
+{
+id:31,name:"Mutton Chettinad",emoji:"🍖",category:"nonveg",
+description:"Spiced Chettinad-style mutton curry.",
+ingredients:[
+["Mutton",150,"g"],
+["Onion",50,"g"],
+["Tomato",50,"g"],
+["Spices",10,"g"]
+],
+recipe:"Cook mutton with onion, tomato and spices until tender and thoroughly cooked."
+},
+
+{
+id:32,name:"Fish Fry",emoji:"🐟",category:"nonveg",
+description:"Seasoned fish cooked until flaky.",
+ingredients:[
+["Fish",150,"g"],
+["Lemon",10,"ml"],
+["Chilli powder",5,"g"],
+["Oil",8,"ml"]
+],
+recipe:"Marinate fish with lemon and spices. Cook thoroughly on a pan until flaky and done."
+},
+
+{
+id:33,name:"Kerala Fish Curry",emoji:"🐟",category:"nonveg",
+description:"Fish curry with coconut and spices.",
+ingredients:[
+["Fish",150,"g"],
+["Coconut milk",100,"ml"],
+["Tamarind",15,"g"],
+["Spices",7,"g"]
+],
+recipe:"Prepare spiced gravy with tamarind and coconut milk. Add fish and cook gently until completely done."
+},
+
+{
+id:34,name:"Prawn Fry",emoji:"🍤",category:"nonveg",
+description:"Prawns cooked with spices.",
+ingredients:[
+["Prawns",150,"g"],
+["Onion",40,"g"],
+["Spices",7,"g"],
+["Oil",7,"ml"]
+],
+recipe:"Sauté onion and spices. Add cleaned prawns and cook until thoroughly done."
+},
+
+{
+id:35,name:"Crab Masala",emoji:"🦀",category:"nonveg",
+description:"Crab prepared with aromatic masala.",
+ingredients:[
+["Crab",180,"g"],
+["Onion",50,"g"],
+["Tomato",50,"g"],
+["Spices",8,"g"]
+],
+recipe:"Prepare onion-tomato masala. Add cleaned crab and cook thoroughly."
+},
+
+{
+id:36,name:"Butter Chicken",emoji:"🍗",category:"nonveg",
+description:"Chicken served in a tomato-based buttery gravy.",
+ingredients:[
+["Chicken",150,"g"],
+["Tomato",100,"g"],
+["Butter",10,"g"],
+["Curd",30,"g"]
+],
+recipe:"Cook chicken thoroughly, prepare tomato gravy, then combine and simmer gently with butter."
+},
+
+{
+id:37,name:"Chicken Tikka Masala",emoji:"🍗",category:"nonveg",
+description:"Spiced chicken pieces in tomato gravy.",
+ingredients:[
+["Chicken",150,"g"],
+["Tomato",100,"g"],
+["Curd",30,"g"],
+["Spices",8,"g"]
+],
+recipe:"Marinate and cook chicken thoroughly. Add to tomato-spice gravy and simmer."
+},
+
+{
+id:38,name:"Tandoori Chicken",emoji:"🍗",category:"nonveg",
+description:"Yogurt-marinated spiced chicken.",
+ingredients:[
+["Chicken",180,"g"],
+["Yogurt",40,"g"],
+["Lemon",10,"ml"],
+["Spices",8,"g"]
+],
+recipe:"Marinate chicken in yogurt, lemon and spices. Cook using an oven, grill or suitable pan until fully cooked."
+},
+
+{
+id:39,name:"Mutton Rogan Josh",emoji:"🍖",category:"nonveg",
+description:"Kashmiri-style aromatic mutton curry.",
+ingredients:[
+["Mutton",150,"g"],
+["Yogurt",50,"g"],
+["Onion",40,"g"],
+["Spices",8,"g"]
+],
+recipe:"Cook mutton with spices and yogurt-based gravy until tender and thoroughly cooked."
+},
+
+{
+id:40,name:"Egg Bhurji",emoji:"🍳",category:"nonveg",
+description:"Eggs scrambled with vegetables and spices.",
+ingredients:[
+["Eggs",2,"pieces"],
+["Onion",30,"g"],
+["Tomato",30,"g"],
+["Spices",4,"g"]
+],
+recipe:"Sauté onion and tomato. Add beaten eggs and stir continuously until completely cooked."
+},
+
+/* DAIRY */
+
+{
+id:41,name:"Milk",emoji:"🥛",category:"dairy",
+description:"Milk is a nutrient-containing dairy beverage.",
+ingredients:[
+["Milk",250,"ml"]
+],
+recipe:"Serve chilled or warm. Avoid prolonged heating after preparation."
+},
+
+{
+id:42,name:"Paneer",emoji:"🧀",category:"dairy",
+description:"Fresh Indian-style cottage cheese.",
+ingredients:[
+["Paneer",100,"g"],
+["Lemon juice",5,"ml"],
+["Milk",500,"ml"]
+],
+recipe:"Heat milk, add an acidic ingredient to separate curds, strain and press the curds to form paneer."
+},
+
+{
+id:43,name:"Cheese",emoji:"🧀",category:"dairy",
+description:"A dairy product made from milk components.",
+ingredients:[
+["Cheese",30,"g"]
+],
+recipe:"Use as a topping or ingredient in meals. Store according to package instructions."
+},
+
+{
+id:44,name:"Butter",emoji:"🧈",category:"dairy",
+description:"A dairy fat commonly used for cooking and spreading.",
+ingredients:[
+["Butter",10,"g"]
+],
+recipe:"Use as a spread or cooking ingredient in suitable quantities."
+},
+
+{
+id:45,name:"Curd",emoji:"🥣",category:"dairy",
+description:"Fermented dairy food made from milk.",
+ingredients:[
+["Milk",250,"ml"],
+["Curd starter",10,"g"]
+],
+recipe:"Warm milk, allow it to cool to a suitable warm temperature, add starter and allow fermentation."
+},
+
+{
+id:46,name:"Yogurt",emoji:"🥛",category:"dairy",
+description:"Cultured fermented milk product.",
+ingredients:[
+["Milk",250,"ml"],
+["Yogurt starter",10,"g"]
+],
+recipe:"Add starter culture to warm milk and allow it to ferment until a soft yogurt texture develops."
+},
+
+{
+id:47,name:"Lassi",emoji:"🥛",category:"dairy",
+description:"Yogurt-based traditional beverage.",
+ingredients:[
+["Yogurt",150,"g"],
+["Water",100,"ml"],
+["Fruit",30,"g"]
+],
+recipe:"Blend yogurt and water until smooth. Add fruit if making a fruit-based version."
+},
+
+{
+id:48,name:"Buttermilk",emoji:"🥛",category:"dairy",
+description:"Light yogurt-based beverage.",
+ingredients:[
+["Curd",100,"g"],
+["Water",200,"ml"],
+["Coriander",5,"g"]
+],
+recipe:"Whisk curd with water and add herbs or mild seasoning."
+},
+
+/* BEVERAGES */
+
+{
+id:49,name:"Tea",emoji:"🍵",category:"beverage",
+description:"A beverage prepared by infusing tea leaves in hot water.",
+ingredients:[
+["Water",200,"ml"],
+["Tea leaves",3,"g"],
+["Milk",50,"ml"]
+],
+recipe:"Boil water, add tea leaves, strain and add milk. Sweeten according to preference."
+},
+
+{
+id:50,name:"Coffee",emoji:"☕",category:"beverage",
+description:"A popular beverage prepared from coffee beans.",
+ingredients:[
+["Water",150,"ml"],
+["Coffee",3,"g"],
+["Milk",50,"ml"]
+],
+recipe:"Prepare coffee using hot water and coffee powder or brewed coffee. Add milk if desired."
+},
+
+{
+id:51,name:"Fresh Orange Juice",emoji:"🍊",category:"beverage",
+description:"Citrus fruit beverage.",
+ingredients:[
+["Orange",3,"pieces"],
+["Water",50,"ml"]
+],
+recipe:"Wash and juice fresh oranges. Serve fresh."
+},
+
+{
+id:52,name:"Apple Juice",emoji:"🍎",category:"beverage",
+description:"Fruit-based beverage made from apple.",
+ingredients:[
+["Apple",2,"pieces"],
+["Water",50,"ml"]
+],
+recipe:"Wash and blend or juice apple. Serve fresh."
+},
+
+{
+id:53,name:"Mango Smoothie",emoji:"🥭",category:"beverage",
+description:"Mango blended with yogurt or milk.",
+ingredients:[
+["Mango",100,"g"],
+["Yogurt",100,"g"],
+["Milk",50,"ml"]
+],
+recipe:"Blend mango with yogurt and milk until smooth."
+},
+
+{
+id:54,name:"Banana Smoothie",emoji:"🍌",category:"beverage",
+description:"Banana-based blended beverage.",
+ingredients:[
+["Banana",1,"piece"],
+["Milk",200,"ml"],
+["Yogurt",50,"g"]
+],
+recipe:"Blend banana, milk and yogurt until smooth."
+},
+
+{
+id:55,name:"Coconut Water",emoji:"🥥",category:"beverage",
+description:"Natural beverage obtained from young coconut.",
+ingredients:[
+["Coconut water",250,"ml"]
+],
+recipe:"Serve fresh coconut water."
+},
+
+{
+id:56,name:"Lemon Water",emoji:"🍋",category:"beverage",
+description:"Simple lemon-flavoured water.",
+ingredients:[
+["Water",250,"ml"],
+["Lemon juice",15,"ml"]
+],
+recipe:"Mix fresh lemon juice with water and serve."
+},
+
+{
+id:57,name:"Cool Drink",emoji:"🥤",category:"beverage",
+description:"Carbonated sweetened beverage used as an occasional drink.",
+ingredients:[
+["Carbonated beverage",250,"ml"]
+],
+recipe:"Serve chilled. Check the nutrition label for sugar and serving information."
+},
+
+/* SNACKS */
+
+{
+id:58,name:"Roasted Peanuts",emoji:"🥜",category:"snack",
+description:"Crunchy legume-based snack.",
+ingredients:[
+["Peanuts",40,"g"],
+["Spices",2,"g"]
+],
+recipe:"Dry roast peanuts and add mild seasoning."
+},
+
+{
+id:59,name:"Fruit Bowl",emoji:"🍓",category:"snack",
+description:"Mixed fresh fruit snack.",
+ingredients:[
+["Apple",50,"g"],
+["Banana",50,"g"],
+["Papaya",50,"g"],
+["Pomegranate",30,"g"]
+],
+recipe:"Wash and cut fruits. Mix and serve fresh."
+},
+
+{
+id:60,name:"Corn Chaat",emoji:"🌽",category:"snack",
+description:"Corn mixed with vegetables and lemon.",
+ingredients:[
+["Sweet corn",100,"g"],
+["Tomato",30,"g"],
+["Onion",20,"g"],
+["Lemon",10,"ml"]
+],
+recipe:"Steam or boil corn. Mix with chopped vegetables and lemon."
+},
+
+{
+id:61,name:"Sprouts Chaat",emoji:"🌱",category:"snack",
+description:"Sprouted legumes with vegetables.",
+ingredients:[
+["Mixed sprouts",100,"g"],
+["Tomato",30,"g"],
+["Onion",20,"g"],
+["Lemon",10,"ml"]
+],
+recipe:"Steam sprouts if desired. Mix with chopped vegetables and lemon."
+},
+
+{
+id:62,name:"Makhana",emoji:"🌸",category:"snack",
+description:"Roasted fox nuts.",
+ingredients:[
+["Makhana",40,"g"],
+["Ghee",5,"g"],
+["Spices",2,"g"]
+],
+recipe:"Dry roast makhana until crisp. Add a small amount of ghee and seasoning."
+},
+
+{
+id:63,name:"Vegetable Sandwich",emoji:"🥪",category:"snack",
+description:"Bread sandwich with vegetables.",
+ingredients:[
+["Whole wheat bread",2,"slices"],
+["Cucumber",30,"g"],
+["Tomato",30,"g"],
+["Carrot",20,"g"]
+],
+recipe:"Place sliced vegetables between bread slices and serve."
+},
+
+{
+id:64,name:"Peanut Sundal",emoji:"🥜",category:"snack",
+description:"South Indian seasoned peanut snack.",
+ingredients:[
+["Peanuts",80,"g"],
+["Coconut",15,"g"],
+["Mustard",2,"g"]
+],
+recipe:"Cook or boil peanuts until tender. Temper with seasoning and add coconut."
+},
+
+{
+id:65,name:"Boiled Corn",emoji:"🌽",category:"snack",
+description:"Simple cooked corn snack.",
+ingredients:[
+["Corn",120,"g"],
+["Lemon",10,"ml"]
+],
+recipe:"Boil or steam corn until tender. Add lemon and mild seasoning."
+}
+
+];
+
+
+/* ==============================
+   FOOD FUNCTIONS
+============================== */
+
+let currentFilter="all";
+let selectedFood=null;
+
+function displayFoods(){
+
+  const grid=document.getElementById("foodGrid");
+  const search=document.getElementById("foodSearch").value.toLowerCase();
+
+  const filtered=foods.filter(food=>{
+
+    const matchesSearch=
+      food.name.toLowerCase().includes(search) ||
+      food.description.toLowerCase().includes(search);
+
+    const matchesFilter=
+      currentFilter==="all" || food.category===currentFilter;
+
+    return matchesSearch && matchesFilter;
+
+  });
+
+  grid.innerHTML="";
+
+  filtered.forEach(food=>{
+
+    const card=document.createElement("div");
+
+    card.className="food-card";
+
+    card.onclick=()=>openFood(food);
+
+    card.innerHTML=`
+      <div class="bigemoji">${food.emoji}</div>
+      <h3>${food.name}</h3>
+      <p>${food.description}</p>
+      <span class="tag">${categoryName(food.category)}</span>
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+function categoryName(category){
+
+  const names={
+    south:"South Indian",
+    north:"North Indian",
+    nonveg:"Non-Veg",
+    dairy:"Dairy",
+    beverage:"Beverage",
+    snack:"Snack"
+  };
+
+  return names[category] || category;
+
+}
+
+function setFilter(filter,button){
+
+  currentFilter=filter;
+
+  document.querySelectorAll(".filter").forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  displayFoods();
+
+}
+
+function showFoodCategory(category){
+
+  currentFilter=category;
+
+  document.getElementById("foods").scrollIntoView();
+
+  document.querySelectorAll(".filter").forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  displayFoods();
+
+}
+
+function openFood(food){
+
+  selectedFood=food;
+
+  document.getElementById("modalEmoji").textContent=food.emoji;
+
+  document.getElementById("modalTitle").textContent=food.name;
+
+  document.getElementById("modalDescription").textContent=food.description;
+
+  document.getElementById("servingInput").value=1;
+
+  document.getElementById("recipeText").textContent=food.recipe;
+
+  updateIngredients();
+
+  document.getElementById("foodModal").classList.add("show");
+
+}
+
+function closeModal(){
+
+  document.getElementById("foodModal").classList.remove("show");
+
+}
+
+function updateIngredients(){
+
+  if(!selectedFood)return;
+
+  const servings=parseFloat(
+    document.getElementById("servingInput").value
+  ) || 1;
+
+  const list=document.getElementById("ingredientList");
+
+  list.innerHTML="";
+
+  selectedFood.ingredients.forEach(item=>{
+
+    const amount=item[1]*servings;
+
+    const row=document.createElement("div");
+
+    row.className="ingredient-row";
+
+    row.innerHTML=`
+      <span>${item[0]}</span>
+      <b>${formatNumber(amount)} ${item[2]}</b>
+    `;
+
+    list.appendChild(row);
+
+  });
+
+}
+
+function formatNumber(number){
+
+  return Number.isInteger(number)
+    ? number
+    : Number(number.toFixed(1));
+
+}
+
+window.onclick=function(e){
+
+  if(e.target===document.getElementById("foodModal")){
+    closeModal();
+  }
+
+};
+
+
+/* ==============================
+   MAKE YOUR PLATE
+============================== */
+
+const plateData={
+
+dish:[
+"Idli + Sambar",
+"Masala Dosa",
+"Ven Pongal",
+"Vegetable Upma",
+"Veg Pulao",
+"Rajma Chawal",
+"Veg Biryani",
+"Roti + Dal",
+"Chicken Chettinad",
+"Fish Curry"
+],
+
+vegetable:[
+"Carrot",
+"Broccoli",
+"Beans",
+"Spinach",
+"Tomato",
+"Cucumber",
+"Beetroot",
+"Capsicum",
+"Peas",
+"Cauliflower"
+],
+
+fruit:[
+"Apple",
+"Banana",
+"Orange",
+"Mango",
+"Papaya",
+"Pomegranate",
+"Guava",
+"Watermelon",
+"Pear",
+"Grapes"
+],
+
+protein:[
+"Egg",
+"Chicken",
+"Fish",
+"Dal",
+"Rajma",
+"Chickpeas",
+"Sprouts",
+"Paneer",
+"Peanuts"
+],
+
+dairy:[
+"Milk",
+"Curd",
+"Yogurt",
+"Paneer",
+"Cheese",
+"Buttermilk"
+],
+
+beverage:[
+"Water",
+"Tea",
+"Coffee",
+"Orange Juice",
+"Coconut Water",
+"Lemon Water",
+"Mango Smoothie"
+],
+
+snack:[
+"Roasted Peanuts",
+"Fruit Bowl",
+"Corn Chaat",
+"Sprouts Chaat",
+"Makhana",
+"Vegetable Sandwich",
+"Peanut Sundal"
+]
+
+};
+
+let plateItems=[];
+
+function plateCategory(category,button){
+
+  document.querySelectorAll(".category-buttons button")
+    .forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const options=document.getElementById("plateOptions");
+
+  options.innerHTML="";
+
+  plateData[category].forEach(item=>{
+
+    const b=document.createElement("button");
+
+    b.textContent="＋ "+item;
+
+    b.onclick=()=>addPlateItem(item,category);
+
+    options.appendChild(b);
+
+  });
+
+}
+
+function addPlateItem(item,category){
+
+  plateItems.push({
+    name:item,
+    category:category
+  });
+
+  renderPlate();
+
+}
+
+function removePlateItem(index){
+
+  plateItems.splice(index,1);
+
+  renderPlate();
+
+}
+
+function renderPlate(){
+
+  const circle=document.getElementById("plateCircle");
+
+  if(plateItems.length===0){
+
+    circle.innerHTML=
+      `<span style="opacity:.5">Add foods ✨</span>`;
+
+  }else{
+
+    circle.innerHTML="";
+
+    plateItems.forEach((item,index)=>{
+
+      const div=document.createElement("div");
+
+      div.className="plate-item";
+
+      div.innerHTML=`
+        ${emojiForCategory(item.category)} ${item.name}
+        <span onclick="removePlateItem(${index})"
+        style="cursor:pointer;margin-left:5px">×</span>
+      `;
+
+      circle.appendChild(div);
+
+    });
+
+  }
+
+  updatePlateSummary();
+
+}
+
+function emojiForCategory(category){
+
+  const e={
+    dish:"🍛",
+    vegetable:"🥦",
+    fruit:"🍎",
+    protein:"🥚",
+    dairy:"🥛",
+    beverage:"🧋",
+    snack:"🍿"
+  };
+
+  return e[category] || "🍽️";
+
+}
+
+function updatePlateSummary(){
+
+  const summary=document.getElementById("plateSummary");
+
+  if(plateItems.length===0){
+
+    summary.textContent=
+      "Your plate is ready to be created.";
+
+    return;
+
+  }
+
+  const categories=[...new Set(
+    plateItems.map(item=>item.category)
+  )];
+
+  let message="✨ You selected ";
+
+  message+=plateItems.length+" item(s). ";
+
+  if(categories.includes("vegetable")){
+    message+="You included vegetables. ";
+  }
+
+  if(categories.includes("protein")){
+    message+="You included a protein source. ";
+  }
+
+  if(categories.includes("dairy")){
+    message+="You included a dairy option. ";
+  }
+
+  if(categories.includes("fruit")){
+    message+="You included fruit. ";
+  }
+
+  if(categories.includes("beverage")){
+    message+="Remember that water can be a simple everyday beverage choice. ";
+  }
+
+  message+="Aim for variety and balance rather than perfection.";
+
+  summary.textContent=message;
+
+}
+
+function clearPlate(){
+
+  plateItems=[];
+
+  renderPlate();
+
+}
+
+
+/* ==============================
+   QUIZ
+============================== */
+
+const quiz=[
+
+{
+q:"Which carbohydrate is naturally present in milk?",
+a:["Lactose","Starch","Cellulose","Glycogen"],
+correct:0
+},
+
+{
+q:"The main protein found in milk is?",
+a:["Casein","Keratin","Collagen","Elastin"],
+correct:0
+},
+
+{
+q:"Paneer is mainly a?",
+a:["Dairy product","Cereal","Fruit","Legume"],
+correct:0
+},
+
+{
+q:"Curd is produced through?",
+a:["Fermentation","Freezing","Drying","Roasting"],
+correct:0
+},
+
+{
+q:"Yogurt is a?",
+a:["Fermented milk product","Cereal product","Meat product","Oil"],
+correct:0
+},
+
+{
+q:"Butter is primarily rich in?",
+a:["Fat","Fibre","Starch","Protein"],
+correct:0
+},
+
+{
+q:"Cheese is generally made from?",
+a:["Milk","Rice","Wheat","Corn"],
+correct:0
+},
+
+{
+q:"Which beverage is prepared by brewing coffee beans?",
+a:["Coffee","Lassi","Buttermilk","Lemon water"],
+correct:0
+},
+
+{
+q:"Tea is commonly prepared by infusing?",
+a:["Tea leaves","Rice","Paneer","Potato"],
+correct:0
+},
+
+{
+q:"Which drink is naturally obtained from young coconuts?",
+a:["Coconut water","Milk tea","Coffee","Soft drink"],
+correct:0
+},
+
+{
+q:"Which nutrient is a major source of energy?",
+a:["Carbohydrate","Water","Minerals","Vitamins"],
+correct:0
+},
+
+{
+q:"Digestible carbohydrates can eventually produce?",
+a:["Simple sugars","Amino acids only","Fatty acids only","Minerals"],
+correct:0
+},
+
+{
+q:"Where does most nutrient absorption occur?",
+a:["Small intestine","Stomach only","Large intestine only","Mouth"],
+correct:0
+},
+
+{
+q:"Which food is a legume-based snack?",
+a:["Roasted peanuts","Butter","Cheese","Juice"],
+correct:0
+},
+
+{
+q:"Which is a fermented dairy food?",
+a:["Curd","Butter","Paneer","Cheese"],
+correct:0
+},
+
+{
+q:"Which food is commonly made from sprouted legumes?",
+a:["Sprouts chaat","Butter","Lassi","Cheese"],
+correct:0
+},
+
+{
+q:"Which of these contains dietary fibre?",
+a:["Vegetables","Butter","Oil","Plain sugar"],
+correct:0
+},
+
+{
+q:"Which is generally a whole-grain-based flatbread?",
+a:["Roti","Lassi","Curd","Juice"],
+correct:0
+},
+
+{
+q:"Which ingredient is commonly used to make paneer from milk?",
+a:["Acid such as lemon juice","Sugar syrup","Oil","Salt water only"],
+correct:0
+},
+
+{
+q:"Which nutrient provides amino acids for body proteins?",
+a:["Protein","Water","Fibre","Minerals"],
+correct:0
+},
+
+{
+q:"Which drink is made mainly from yogurt and water?",
+a:["Buttermilk","Coffee","Tea","Orange juice"],
+correct:0
+},
+
+{
+q:"Which food is an example of a fruit?",
+a:["Mango","Paneer","Butter","Cheese"],
+correct:0
+},
+
+{
+q:"Which food is primarily a dairy fat?",
+a:["Butter","Dal","Apple","Rice"],
+correct:0
+},
+
+{
+q:"Which molecule is commonly associated with blood glucose?",
+a:["Glucose","Cellulose","Keratin","Collagen"],
+correct:0
+},
+
+{
+q:"Which choice generally adds variety to a balanced plate?",
+a:["Vegetables, protein and other food groups","Only one food","Only a beverage","Only snacks"],
+correct:0
+}
+
+];
+
+let quizIndex=0;
+let score=0;
+
+function loadQuiz(){
+
+  if(quizIndex>=quiz.length){
+
+    document.getElementById("quizArea").style.display="none";
+
+    const result=document.getElementById("quizResult");
+
+    result.style.display="block";
+
+    result.innerHTML=`
+      <div style="font-size:60px">🎉</div>
+      <h2>Quiz Complete!</h2>
+      <p style="font-size:22px;margin:15px">
+        Score: <b>${score}/${quiz.length}</b>
+      </p>
+      <button class="btn btn-primary" onclick="restartQuiz()">
+        Try Again
+      </button>
+    `;
+
+    return;
+
+  }
+
+  const current=quiz[quizIndex];
+
+  document.getElementById("questionNumber")
+    .textContent=quizIndex+1;
+
+  document.getElementById("quizProgress")
+    .style.width=
+      ((quizIndex)/quiz.length*100)+"%";
+
+  document.getElementById("question")
+    .textContent=current.q;
+
+  const answers=document.getElementById("answers");
+
+  answers.innerHTML="";
+
+  current.a.forEach((answer,index)=>{
+
+    const button=document.createElement("button");
+
+    button.textContent=answer;
+
+    button.onclick=()=>answerQuiz(index);
+
+    answers.appendChild(button);
+
+  });
+
+}
+
+function answerQuiz(index){
+
+  if(index===quiz[quizIndex].correct){
+
+    score++;
+
+  }
+
+  quizIndex++;
+
+  loadQuiz();
+
+}
+
+function restartQuiz(){
+
+  quizIndex=0;
+  score=0;
+
+  document.getElementById("quizArea").style.display="block";
+
+  document.getElementById("quizResult").style.display="none";
+
+  loadQuiz();
+
+}
+
+
+/* ==============================
+   WATER TRACKER
+============================== */
+
+let water=0;
+
+function renderWater(){
+
+  document.getElementById("waterCount")
+    .textContent=water;
+
+  const container=document.getElementById("waterGlasses");
+
+  container.innerHTML="";
+
+  for(let i=0;i<8;i++){
+
+    const span=document.createElement("span");
+
+    span.className=
+      "glass "+(i<water?"full":"");
+
+    span.textContent="🥛";
+
+    span.onclick=()=>{
+
+      water=i+1;
+
+      renderWater();
+
+    };
+
+    container.appendChild(span);
+
+  }
+
+}
+
+function addWater(){
+
+  if(water<8){
+
+    water++;
+
+    renderWater();
+
+  }
+
+}
+
+function resetWater(){
+
+  water=0;
+
+  renderWater();
+
+}
+
+
+/* ==============================
+   STEPS
+============================== */
+
+function calculateSteps(){
+
+  const steps=parseInt(
+    document.getElementById("steps").value
+  );
+
+  if(!steps || steps<0){
+
+    document.getElementById("stepResult")
+      .textContent="Please enter a valid step count.";
+
+    return;
+
+  }
+
+  const distance=steps*0.0007;
+
+  document.getElementById("stepResult").innerHTML=`
+    👟 ${steps.toLocaleString()} steps<br><br>
+    Approximate distance:
+    <b>${distance.toFixed(2)} km</b>
+    <br><br>
+    Step length varies between people, so this is only an estimate.
+  `;
+
+}
+
+
+/* ==============================
+   BMI
+============================== */
+
+function calculateBMI(){
+
+  const height=parseFloat(
+    document.getElementById("height").value
+  );
+
+  const weight=parseFloat(
+    document.getElementById("weight").value
+  );
+
+  if(!height || !weight){
+
+    document.getElementById("bmiResult")
+      .textContent="Please enter both values.";
+
+    return;
+
+  }
+
+  const bmi=
+    weight/Math.pow(height/100,2);
+
+  document.getElementById("bmiResult").innerHTML=`
+    Educational BMI value:
+    <b>${bmi.toFixed(1)}</b>
+    <br><br>
+    BMI interpretation differs by age. For people under 18,
+    adult BMI categories should not be used; age- and
+    sex-specific growth charts are needed.
+  `;
+
+}
+
+
+/* ==============================
+   INITIALIZE
+============================== */
+
+displayFoods();
+loadQuiz();
+renderWater();
+
+</script>
+
+</body>
+</html>
